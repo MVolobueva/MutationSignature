@@ -1,0 +1,11 @@
+PySide2
+numpy
+scipy
+ipython
+jupyter
+sympy
+nose
+print-tree2
+shapely
+vptree
+openpyxl
