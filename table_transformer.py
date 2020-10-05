@@ -3,9 +3,6 @@ import numpy as np
 import consensus
 from Bio import SeqIO
 
-con1 = consensus.Consensus('/home/masha/tree/Listeria_monocytogenes_68_83/mutations/mut.tsv')
-
-
 class TableTransformer(object):
     def __init__(self, file_path, path_to_consensus):
         self.table = pd.read_csv(file_path, sep='\t')
@@ -35,13 +32,14 @@ class TableTransformer(object):
         self._organism_name()
         df1 = self.table.set_index(['block', 'consensus', 'stop(gaps)/change', 'start'])
         #print(list(set(df1.index))[1])
-        #print(set(df1.loc[list(set(df1.index))[1]]['organism_name'].values))
         index_ls = set(df1.index)
+        #print([set(df1.loc[i]['organism_name']) for i in index_ls])
+
         self.table = pd.DataFrame({'block': [i[0] for i in index_ls], \
                                     'consensus': [i[1] for i in index_ls], \
                                     'change': [i[2] for i in index_ls],\
                                     'start': [i[3] for i in index_ls],\
-                                    'set of clade': [set(df1.loc[i]['organism_name'].values) for i in index_ls]})
+                                    'set of clade': [set(df1.loc[i]['organism_name']) for i in index_ls]})
         self.table['is clade'] = self.table['set of clade'].apply(lambda x: x in clade_list or x in single_bunch_set - x)
         return self.table
 
