@@ -6,3 +6,5 @@ class Consensus(object):
 
     def get_consensus(self, block_names, position):
         return self.block_sequence[block_names].seq[position]
+    #def get_len_block(self, block_names):
+    #    return len(self.block_sequence[block_names])
